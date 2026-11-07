@@ -4,7 +4,8 @@
 
 ## Case study
 
-My case study is FinTrust Customer and Financial Records. I designed the database for customers managing their accounts and transactions, finTrust staff reviewing account activity and database administrators maintaining records, with separate tables named customers, accounts, transaction_types, transaction_statuses, transactions and audit_logs. It supports these operations: register customers and open accounts; record deposits, withdrawals and transfers; track transaction types and statuses; review financial activity and audit records.
+This is FinTrust Customer and Financial Records. The database supports customers managing their accounts and transactions, customer support staff reviewing account activity, and database administrators maintaining records, with separate tables named customers, accounts, transaction_types, transaction_statuses, transactions and audit_logs. 
+It supports these operations: register customers and open accounts; record deposits, withdrawals and transfers; track transaction types and statuses; review financial activity and audit records.
 
 ## Portfolio 1: Database Design and Modelling
 
@@ -18,7 +19,7 @@ Figure 1. Tables, keys and relationships. PK: primary key; FK: foreign key; UK: 
 
 ## Portfolio 2: Query Processing and Optimisation
 
-I ran four SQL queries against the sample records. The join returned 1 rows and included Alex Morgan with FT-100001. For the index comparison, I used 50,000 separate performance rows. The median lookup time changed from 2.4 ms to 0.282 ms. Both phases returned the same records. The measured plan used the new index. These timings apply to this lookup and environment.
+I ran four SQL queries against the sample records. The join query returned one record, showing Alex Morgan's transaction with reference FT-100001. For the index comparison, I used 50,000 separate performance rows. The median lookup time changed from 2.4 ms to 0.282 ms. Both phases returned the same records. The measured plan used the new index. These timings apply to this lookup and environment.
 
 ## Portfolio 3: Transactions and Concurrency
 
@@ -26,7 +27,7 @@ I used a temporary counter on transactions to test COMMIT, ROLLBACK and READ COM
 
 ## Portfolio 4: NoSQL and Advanced Data Models
 
-I used activity_events for the case's event documents. MongoDB inserted 2 sample events and returned the expected results for 4 queries. Validation rejected an invalid date type and a duplicate event ID. Embedded snapshots keep related details with an event, while the details field can differ by event type. These are fictional events; PostgreSQL continues to enforce its relational rules.
+I used activity_events for the case's event documents. The MongoDB implementation used an activity_events collection to store sample event documents. I inserted two sample events and ran four queries successfully. I also tested the validation rules by attempting to insert an invalid date and a duplicate event ID. Both were rejected.
 
 ## Repository and evidence
 
@@ -43,7 +44,11 @@ I proposed three MongoDB replica members across separate failure zones. The disc
 
 ## Individual reflection
 
-I kept customers, accounts, transaction_types, transaction_statuses, transactions, audit_logs in separate tables so their details could be maintained without repeating them in every related record. An account balance cannot be below zero. The constraint tests check this alongside the required values and record links. One issue illustrated by the two-session exercise is that both sessions can read the same value before either update is committed. Locking the row before reading preserves both increments. The index comparison also shows why I need to check the execution plan as well as the final answer: the same result can require different amounts of database work.
+## Individual Reflection
+
+This portfolio was a learning experience for me, especially because I was new to MySQL Workbench and had to learn as I built the database. From installing the tools to creating the tables, understanding their attributes and setting up relationships, I gradually became more confident with the process.
+One thing I particularly learned was that database design requires careful thought. I had to understand why each table was needed, how the tables connected and how constraints could prevent incorrect records. I also had to go back and make corrections along the way to ensure the design worked as intended.
+I'm glad I didn't just rush through the implementation. Taking time to understand each step has given me a better foundation in relational database design and more confidence to work with MySQL.
 
 ## AI-use declaration
 
